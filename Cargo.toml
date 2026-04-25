@@ -1,0 +1,48 @@
+[workspace]
+resolver = "2"
+members = [
+    "main-app",
+    "crates/models",
+    "crates/logic",
+    "crates/functions",
+    "crates/http-response",
+    "crates/database",
+    "crates/config-env",
+    "crates/graphql",
+    "crates/auth-integration",
+    "migration",
+]
+
+[workspace.dependencies]
+anyhow = "1.0"
+thiserror = "2.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+actix-rt = "2.10.0"
+actix-web = "4.10.2"
+chrono = { version = "0.4.41", features = ["serde"] }
+dotenvy = "0.15"
+tokio = { version = "1", features = ["full"] }
+env_logger = "0.11.8"
+listenfd = "1.0.2"
+log = "0.4.27"
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = "1.0.140"
+uuid = { version = "1.16.0", features = ["serde", "v4"] }
+futures-util = "0.3.31"
+nanoid = "0.4.0"
+utoipa = { version = "5.3.1", features = ["uuid", "chrono", "decimal"] }
+utoipa-swagger-ui = { version = "9.0.1", features = ["actix-web"] }
+sea-orm = { version = "1.1.11", features = ["sqlx-postgres", "runtime-tokio-native-tls", "macros", "serde_json"] }
+once_cell = "1.21.3"
+percent-encoding = "2.3.1"
+actix-cors = "0.7.1"
+chrono-tz = "0.10.3"
+rust_decimal = { version = "1.37.2", features = ["serde"] }
+jsonwebtoken = { version = "10.0.0", features = ["rust_crypto"] }
+base64 = "0.22.1"
+doppler-rs = "0.0.2"
+reqwest = { version = "^0", features = ["rustls-tls", "json"] }
+async-graphql = "7.0"
+async-graphql-actix-web = "7.0"
+graphql_client = "0.16.0"

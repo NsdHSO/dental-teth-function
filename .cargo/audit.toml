@@ -1,0 +1,10 @@
+[advisories]
+# Ignore MySQL-related vulnerability since we only use PostgreSQL
+ignore = [
+    "RUSTSEC-2023-0071", # rsa - Marvin Attack (only affects sqlx-mysql, we use sqlx-postgres)
+]
+# Warn for specific categories of informational advisories
+informational_warnings = ["unmaintained", "unsound"]
+# Optional: set a severity threshold to fail only at or above this level
+# Allowed: "none", "low", "medium", "high", "critical"
+# severity_threshold = "low"

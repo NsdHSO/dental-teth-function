@@ -1,0 +1,15 @@
+# Church Management System - Code Owners
+
+# Default owners for everything in the repo
+* @nsdhso
+
+# Models and database
+/crates/models/ @nsdhso
+/migration/ @nsdhso
+
+# Core application
+/main-app/ @nsdhso
+
+# Infrastructure
+/.github/ @nsdhso
+/Cargo.toml @nsdhso

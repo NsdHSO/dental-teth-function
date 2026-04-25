@@ -1,0 +1,29 @@
+[package]
+name = "main-app"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = { workspace = true }
+actix-rt = { workspace = true }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+anyhow = { workspace = true }
+dotenvy = { workspace = true }
+sea-orm = { workspace = true }
+chrono = { workspace = true }
+actix-cors = "0.7"
+env_logger = "0.11"
+
+# Local crates
+models = { path = "../crates/models" }
+logic = { path = "../crates/logic" }
+functions = { path = "../crates/functions" }
+http-response = { path = "../crates/http-response" }
+database = { path = "../crates/database" }
+config-env = { path = "../crates/config-env" }
+graphql = { path = "../crates/graphql" }
+auth-integration = { path = "../crates/auth-integration" }

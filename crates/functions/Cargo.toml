@@ -1,0 +1,23 @@
+[package]
+name = "functions"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+uuid = { workspace = true }
+chrono = { workspace = true }
+actix-web = { workspace = true }
+rust_decimal = { workspace = true }
+tracing = { workspace = true }
+sea-orm = { workspace = true }
+anyhow = { workspace = true }
+
+# Local crates
+models = { path = "../models" }
+auth-integration = { path = "../auth-integration" }
+http-response = { path = "../http-response" }
+
+[dev-dependencies]
+actix-rt = { workspace = true }

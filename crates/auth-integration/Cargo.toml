@@ -1,0 +1,15 @@
+[package]
+name = "auth-integration"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+reqwest = { workspace = true }
+futures-util = { workspace = true }
+sea-orm = { workspace = true }
+
+http-response = { path = "../http-response" }
+models = { path = "../models" }

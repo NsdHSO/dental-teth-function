@@ -1,0 +1,141 @@
+# Rust build artifacts
+/target
+**/target/
+**/*.rs.bk
+*.pdb
+
+# Cargo lock file (uncomment if library crate)
+Cargo.lock
+
+# Environment variables
+.env
+.env.*
+!.env.example
+.envrc
+
+# IDE and Editor files
+## VSCode
+.vscode/
+*.code-workspace
+
+## IntelliJ / CLion / RustRover
+.idea/
+*.iml
+*.ipr
+*.iws
+.fleet/
+
+## Emacs
+*~
+\#*\#
+.\#*
+
+## Vim
+*.swp
+*.swo
+*~
+.*.sw?
+.sw?
+
+## Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+## Helix
+.helix/
+
+# OS-specific files
+## macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+## Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+
+## Linux
+.Trash-*
+.nfs*
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# Logs and debugging
+*.log
+logs/
+*.stackdump
+*.prof
+*.out
+
+# Testing and coverage
+*.profraw
+*.profdata
+coverage/
+*.gcda
+*.gcno
+*.gcov
+tarpaulin-report.html
+cobertura.xml
+lcov.info
+
+# Documentation
+/doc
+book/
+mdbook-*/
+docs/*
+
+# Backup files
+*.bak
+*.tmp
+*.temp
+*~
+.#*
+
+# Build outputs
+*.so
+*.dylib
+*.dll
+*.exe
+*.a
+*.lib
+
+# Flamegraph
+flamegraph.svg
+perf.data
+perf.data.old
+
+# Benchmarking
+criterion/
+
+# Node (if using wasm or mixed projects)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python (if using mixed projects)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Misc
+*.orig
+.cache/
+
+# Git worktrees
+.worktrees/
+.claude

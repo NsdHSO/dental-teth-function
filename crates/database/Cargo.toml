@@ -1,0 +1,13 @@
+[package]
+name = "database"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { workspace = true }
+sea-orm = { workspace = true }
+once_cell = { workspace = true }
+
+# Local crates
+models = { path = "../models" }
+http-response = { path = "../http-response" }

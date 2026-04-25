@@ -1,0 +1,13 @@
+[package]
+name = "config-env"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { workspace = true }
+doppler-rs = { workspace = true }
+reqwest = { workspace = true }
+serde_json = { workspace = true }
+
+# Local crates
+models = { path = "../models" }
