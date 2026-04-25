@@ -27,7 +27,7 @@ jobs:
           tar -czf yuhuu-function-linux-x86_64.tar.gz yuhuu-function
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           files: |
             release/yuhuu-function-linux-x86_64.tar.gz
