@@ -9,7 +9,7 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table((Alias::new("church"), UserRoles::Table))
+                    .table((Alias::new("dental"), UserRoles::Table))
                     .if_not_exists()
                     .col(
                         ColumnDef::new(UserRoles::Id)
@@ -43,9 +43,9 @@ impl MigrationTrait for Migration {
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk_user_roles_user_id")
-                            .from((Alias::new("church"), UserRoles::Table), UserRoles::UserId)
+                            .from((Alias::new("dental"), UserRoles::Table), UserRoles::UserId)
                             .to(
-                                (Alias::new("church"), Alias::new("users")),
+                                (Alias::new("dental"), Alias::new("users")),
                                 Alias::new("id"),
                             )
                             .on_delete(ForeignKeyAction::Cascade)
@@ -54,9 +54,9 @@ impl MigrationTrait for Migration {
                     .foreign_key(
                         ForeignKey::create()
                             .name("fk_user_roles_role_id")
-                            .from((Alias::new("church"), UserRoles::Table), UserRoles::RoleId)
+                            .from((Alias::new("dental"), UserRoles::Table), UserRoles::RoleId)
                             .to(
-                                (Alias::new("church"), Alias::new("roles")),
+                                (Alias::new("dental"), Alias::new("roles")),
                                 Alias::new("id"),
                             )
                             .on_delete(ForeignKeyAction::Cascade)
@@ -66,11 +66,11 @@ impl MigrationTrait for Migration {
                         ForeignKey::create()
                             .name("fk_user_roles_assigned_by")
                             .from(
-                                (Alias::new("church"), UserRoles::Table),
+                                (Alias::new("dental"), UserRoles::Table),
                                 UserRoles::AssignedBy,
                             )
                             .to(
-                                (Alias::new("church"), Alias::new("users")),
+                                (Alias::new("dental"), Alias::new("users")),
                                 Alias::new("id"),
                             )
                             .on_delete(ForeignKeyAction::SetNull)
@@ -85,7 +85,7 @@ impl MigrationTrait for Migration {
             .create_index(
                 Index::create()
                     .name("idx_user_roles_user_role_unique")
-                    .table((Alias::new("church"), UserRoles::Table))
+                    .table((Alias::new("dental"), UserRoles::Table))
                     .col(UserRoles::UserId)
                     .col(UserRoles::RoleId)
                     .unique()
@@ -101,7 +101,7 @@ impl MigrationTrait for Migration {
         manager
             .drop_table(
                 Table::drop()
-                    .table((Alias::new("church"), UserRoles::Table))
+                    .table((Alias::new("dental"), UserRoles::Table))
                     .to_owned(),
             )
             .await

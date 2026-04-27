@@ -16,22 +16,17 @@ if [[ -z "${DATABASE_URL:-}" ]]; then
   exit 1
 fi
 
-# Ask for schema (e.g., auth or public), default to 'auth'
-DB_SCHEMA="church"
+DB_SCHEMA="dental"
 
-# Modify DATABASE_URL to set search_path to church schema
-# This ensures seaql_migrations table is created in church schema
+# Modify DATABASE_URL to set search_path to dental schema
+# This ensures seaql_migrations table is created in dental schema
 if [[ "$DATABASE_URL" == *"?"* ]]; then
-  # URL already has query parameters
   MODIFIED_URL="${DATABASE_URL}&options=-c%20search_path%3D${DB_SCHEMA}%2Cpublic"
 else
-  # URL has no query parameters
   MODIFIED_URL="${DATABASE_URL}?options=-c%20search_path%3D${DB_SCHEMA}%2Cpublic"
 fi
 
 echo "Running database migrations against schema: ${DB_SCHEMA} ..."
-# Execute custom church-schema migration runner
-# This bypasses SeaORM CLI issues with schema-qualified migration tables
 export DATABASE_URL="$MODIFIED_URL"
 cargo run --manifest-path migration/Cargo.toml --bin run_church_migrations
 

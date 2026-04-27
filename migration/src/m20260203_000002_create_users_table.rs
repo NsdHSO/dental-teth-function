@@ -9,7 +9,7 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table((Alias::new("church"), Users::Table))
+                    .table((Alias::new("dental"), Users::Table))
                     .if_not_exists()
                     .col(
                         ColumnDef::new(Users::Id)
@@ -45,7 +45,7 @@ impl MigrationTrait for Migration {
             .create_index(
                 Index::create()
                     .name("idx_users_auth_user_id")
-                    .table((Alias::new("church"), Users::Table))
+                    .table((Alias::new("dental"), Users::Table))
                     .col(Users::AuthUserId)
                     .if_not_exists()
                     .to_owned(),
@@ -59,7 +59,7 @@ impl MigrationTrait for Migration {
         manager
             .drop_table(
                 Table::drop()
-                    .table((Alias::new("church"), Users::Table))
+                    .table((Alias::new("dental"), Users::Table))
                     .to_owned(),
             )
             .await

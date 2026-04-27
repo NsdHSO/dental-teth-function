@@ -9,7 +9,7 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table((Alias::new("church"), Roles::Table))
+                    .table((Alias::new("dental"), Roles::Table))
                     .if_not_exists()
                     .col(
                         ColumnDef::new(Roles::Id)
@@ -43,7 +43,7 @@ impl MigrationTrait for Migration {
             .create_index(
                 Index::create()
                     .name("idx_roles_name")
-                    .table((Alias::new("church"), Roles::Table))
+                    .table((Alias::new("dental"), Roles::Table))
                     .col(Roles::Name)
                     .if_not_exists()
                     .to_owned(),
@@ -55,7 +55,7 @@ impl MigrationTrait for Migration {
             .create_index(
                 Index::create()
                     .name("idx_roles_level")
-                    .table((Alias::new("church"), Roles::Table))
+                    .table((Alias::new("dental"), Roles::Table))
                     .col(Roles::Level)
                     .if_not_exists()
                     .to_owned(),
@@ -69,7 +69,7 @@ impl MigrationTrait for Migration {
         manager
             .drop_table(
                 Table::drop()
-                    .table((Alias::new("church"), Roles::Table))
+                    .table((Alias::new("dental"), Roles::Table))
                     .to_owned(),
             )
             .await
