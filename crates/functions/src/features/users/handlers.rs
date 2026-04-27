@@ -4,6 +4,7 @@ use http_response::{create_response, HttpCodeW};
 use models::internal::ListUsersQuery;
 
 use super::service::UserService;
+use crate::features::user_roles::service::UserRoleService;
 
 /// GET /v1/me
 /// Get the authenticated church user (derived from JWT)
@@ -13,6 +14,24 @@ pub async fn get_me(
 ) -> Result<HttpResponse> {
     let user = UserService::get_user_by_auth_id(&db, &subject.sub).await?;
     let resp = create_response(user, HttpCodeW::OK);
+    Ok(HttpResponse::Ok().json(resp))
+}
+
+/// GET /v1/me/profile
+/// Get the authenticated user's profile including roles
+pub async fn get_my_profile(
+    db: web::Data<sea_orm::DatabaseConnection>,
+    subject: Subject,
+) -> Result<HttpResponse> {
+    let user = UserService::get_user_by_auth_id(&db, &subject.sub).await?;
+    let roles = UserRoleService::get_user_roles(&db, user.id).await?;
+    
+    let profile = serde_json::json!({
+        "user": user,
+        "roles": roles
+    });
+    
+    let resp = create_response(profile, HttpCodeW::OK);
     Ok(HttpResponse::Ok().json(resp))
 }
 
