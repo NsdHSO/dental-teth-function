@@ -43,9 +43,9 @@ pub async fn init(db_url: String, logging: bool) -> Result<DatabaseConnection, C
         )
     })?;
 
-    // Explicitly set search_path for the connection to ensure church schema types are found
+    // Explicitly set search_path for the connection to ensure dental schema types are found
     use sea_orm::ConnectionTrait;
-    conn.execute_unprepared("SET search_path TO church, public")
+    conn.execute_unprepared("SET search_path TO dental, public")
         .await
         .map_err(|e| {
             CustomError::new(
