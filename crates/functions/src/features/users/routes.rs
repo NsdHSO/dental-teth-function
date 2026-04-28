@@ -2,14 +2,11 @@ use actix_web::web;
 
 use super::handlers;
 
-/// Configure user routes
+/// Configure user routes (legacy - use user_profiles instead)
 pub fn configure_users(cfg: &mut web::ServiceConfig) {
-    cfg.service(web::resource("/me").route(web::get().to(handlers::get_me)))
-        .service(web::resource("/me/profile").route(web::get().to(handlers::get_my_profile)))
-        .service(
-            web::scope("/users")
-                .route("", web::get().to(handlers::list_users))
-                .route("/link", web::post().to(handlers::link_user))
-                .route("/{id}", web::get().to(handlers::get_user)),
-        );
+    cfg.service(
+        web::scope("/users")
+            .route("", web::get().to(handlers::list_users))
+            .route("/{id}", web::get().to(handlers::get_user)),
+    );
 }

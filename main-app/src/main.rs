@@ -8,8 +8,8 @@ use database::config::init;
 use dotenvy::dotenv;
 use env_logger::{Builder, Env};
 use functions::{
-    configure_appointments, configure_bootstrap, configure_dentists, configure_roles,
-    configure_user_roles, configure_users,
+    configure_appointments, configure_dentists, configure_roles,
+    configure_user_roles, configure_users, configure_user_profiles,
 };
 use graphql::{
     build_schema, graphql_handler, graphql_playground, strapi_proxy_handler, StrapiClient,
@@ -78,9 +78,9 @@ async fn main() -> std::io::Result<()> {
                     .configure(configure_users)
                     .configure(configure_roles)
                     .configure(configure_user_roles)
-                    .configure(configure_bootstrap)
                     .configure(configure_dentists)
-                    .configure(configure_appointments),
+                    .configure(configure_appointments)
+                    .configure(configure_user_profiles),
             )
             .service(
                 web::resource("/graphql")

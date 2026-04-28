@@ -6,7 +6,7 @@ use super::handlers::{
 
 pub fn configure_appointments(cfg: &mut web::ServiceConfig) {
     cfg.service(
-        web::scope("/v1/appointments")
+        web::scope("/appointments")
             .route("", web::get().to(list_appointments))
             .route("", web::post().to(create_appointment))
             .route("/{id}", web::get().to(get_appointment))
