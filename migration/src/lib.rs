@@ -7,6 +7,7 @@ mod m20260203_000010_create_user_roles_table;
 mod m20260203_000014_seed_default_roles;
 mod m20260428_000002_create_dentists_table;
 mod m20260428_000003_create_appointments_table;
+mod m20260428_000006_create_user_profiles_table;
 
 pub struct Migrator;
 
@@ -21,6 +22,7 @@ impl MigratorTrait for Migrator {
             Box::new(m20260203_000014_seed_default_roles::Migration),
             Box::new(m20260428_000002_create_dentists_table::Migration),
             Box::new(m20260428_000003_create_appointments_table::Migration),
+            Box::new(m20260428_000006_create_user_profiles_table::Migration),
         ]
     }
 }
