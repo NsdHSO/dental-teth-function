@@ -12,7 +12,7 @@ pub async fn get_me(
     db: web::Data<sea_orm::DatabaseConnection>,
     subject: Subject,
 ) -> Result<HttpResponse> {
-    let user = UserService::get_user_by_auth_id(&db, &subject.sub).await?;
+    let user = UserService::get_user_by_auth_id(db.get_ref(), &subject.sub).await?;
     let resp = create_response(user, HttpCodeW::OK);
     Ok(HttpResponse::Ok().json(resp))
 }
@@ -23,7 +23,7 @@ pub async fn get_my_profile(
     db: web::Data<sea_orm::DatabaseConnection>,
     subject: Subject,
 ) -> Result<HttpResponse> {
-    let user = UserService::get_user_by_auth_id(&db, &subject.sub).await?;
+    let user = UserService::get_user_by_auth_id(db.get_ref(), &subject.sub).await?;
     let roles = UserRoleService::get_user_roles(&db, user.id).await?;
     
     let profile = serde_json::json!({
@@ -41,7 +41,7 @@ pub async fn link_user(
     db: web::Data<sea_orm::DatabaseConnection>,
     subject: Subject,
 ) -> Result<HttpResponse> {
-    let response = UserService::link_user(&db, &subject.sub).await?;
+    let response = UserService::link_user(db.get_ref(), &subject.sub).await?;
 
     if response.message.contains("already") {
         let resp = create_response(response, HttpCodeW::OK);
@@ -60,7 +60,7 @@ pub async fn get_user(
     _subject: Subject,
 ) -> Result<HttpResponse> {
     let user_id = path.into_inner();
-    let user = UserService::get_user_by_id(&db, user_id).await?;
+    let user = UserService::get_user_by_id(db.get_ref(), user_id).await?;
 
     let resp = create_response(user, HttpCodeW::OK);
     Ok(HttpResponse::Ok().json(resp))
@@ -73,7 +73,7 @@ pub async fn list_users(
     query: web::Query<ListUsersQuery>,
     _subject: Subject,
 ) -> Result<HttpResponse> {
-    let response = UserService::list_users(&db, query.page, query.limit).await?;
+    let response = UserService::list_users(db.get_ref(), query.page, query.limit).await?;
 
     let resp = create_response(response, HttpCodeW::OK);
     Ok(HttpResponse::Ok().json(resp))

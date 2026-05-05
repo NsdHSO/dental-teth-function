@@ -6,9 +6,7 @@ use serde::{Deserialize, Serialize};
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = true)]
     pub id: i64,
-    pub patient_name: String,
-    pub patient_phone: Option<String>,
-    pub patient_email: Option<String>,
+    pub patient_id: i64,
     pub dentist_id: i64,
     pub appointment_date: Date,
     pub appointment_time: Time,
@@ -23,14 +21,26 @@ pub struct Model {
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation {
-    #[sea_orm(has_one = "super::dentist::Entity")]
+    #[sea_orm(
+        belongs_to = "super::patient::Entity",
+        from = "Column::PatientId",
+        to = "super::patient::Column::Id"
+    )]
+    Patient,
+
+    #[sea_orm(
+        belongs_to = "super::dentist::Entity",
+        from = "Column::DentistId",
+        to = "super::dentist::Column::Id"
+    )]
     Dentist,
 }
 
+impl Related<super::patient::Entity> for Entity {
+    fn to() -> RelationDef { Relation::Patient.def() }
+}
 impl Related<super::dentist::Entity> for Entity {
-    fn to() -> RelationDef {
-        Relation::Dentist.def()
-    }
+    fn to() -> RelationDef { Relation::Dentist.def() }
 }
 
 impl ActiveModelBehavior for ActiveModel {}

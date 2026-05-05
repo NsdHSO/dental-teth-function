@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use super::Pagination;
 
 #[derive(Debug, Serialize)]
 pub struct DentistResponse {
@@ -60,12 +61,4 @@ fn default_limit() -> i64 {
 pub struct ListDentistsResponse {
     pub data: Vec<DentistResponse>,
     pub pagination: Pagination,
-}
-
-#[derive(Debug, Serialize)]
-pub struct Pagination {
-    pub page: i64,
-    pub limit: i64,
-    pub total: i64,
-    pub total_pages: i64,
 }

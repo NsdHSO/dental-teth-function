@@ -5,12 +5,9 @@ use super::handlers::{
 };
 
 pub fn configure_appointments(cfg: &mut web::ServiceConfig) {
-    cfg.service(
-        web::scope("/appointments")
-            .route("", web::get().to(list_appointments))
-            .route("", web::post().to(create_appointment))
-            .route("/{id}", web::get().to(get_appointment))
-            .route("/{id}", web::put().to(update_appointment))
-            .route("/{id}", web::delete().to(delete_appointment)),
-    );
+    cfg.route("/appointments", web::get().to(list_appointments))
+        .route("/appointments", web::post().to(create_appointment))
+        .route("/appointments/{id}", web::get().to(get_appointment))
+        .route("/appointments/{id}", web::put().to(update_appointment))
+        .route("/appointments/{id}", web::delete().to(delete_appointment));
 }

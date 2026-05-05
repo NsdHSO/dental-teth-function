@@ -62,43 +62,56 @@ impl From<DbErr> for CustomError {
     fn from(error: DbErr) -> CustomError {
         match error {
             DbErr::Conn(e) => {
-                let msg = format!("Chruch database connection error: {e}");
+                let msg = format!("Dental database connection error: {e}");
                 print!("{msg}"); // Log the error
                 CustomError::new(HttpCodeW::InternalServerError, msg)
             }
             DbErr::Exec(e) => {
-                let msg = format!("Chruch database execution error: {e}");
+                let msg = format!("Dental database execution error: {e}");
                 print!("{msg}"); // Log the error
                 CustomError::new(HttpCodeW::InternalServerError, msg)
             }
             DbErr::Query(e) => {
-                let msg = format!("Chruch database query error: {e}");
+                let msg = format!("Dental database query error: {e}");
                 print!("{msg}"); // Log the error
                 CustomError::new(HttpCodeW::InternalServerError, msg)
             }
             DbErr::Json(e) => {
-                let msg = format!("Chruch JSON error: {e}");
+                let msg = format!("Dental JSON error: {e}");
                 print!("{msg}"); // Log the error
                 CustomError::new(HttpCodeW::InternalServerError, msg)
             }
             DbErr::ConvertFromU64(e) => {
-                let msg = format!("Chruch conversion error: {e}");
+                let msg = format!("Dental conversion error: {e}");
                 print!("{msg}"); // Log the error
                 CustomError::new(HttpCodeW::InternalServerError, msg)
             }
             DbErr::RecordNotFound(_) => {
-                CustomError::new(HttpCodeW::NotFound, "Chruch record not found".to_string())
+                CustomError::new(HttpCodeW::NotFound, "Dental record not found".to_string())
             } // Not an error that needs logging at ERROR level
             DbErr::Custom(e) => {
-                let msg = format!("Custom Chruch database error: {e}");
+                let msg = format!("Custom Dental database error: {e}");
                 print!("{msg}"); // Log the error
                 CustomError::new(HttpCodeW::InternalServerError, msg)
             }
             _ => {
-                let msg = format!("Unknown Chruch database error: {error:?}");
+                let msg = format!("Unknown Dental database error: {error:?}");
                 print!("{msg}"); // Log the error
                 CustomError::new(HttpCodeW::InternalServerError, msg)
             }
+        }
+    }
+}
+
+impl From<sea_orm::TransactionError<CustomError>> for CustomError {
+    fn from(error: sea_orm::TransactionError<CustomError>) -> CustomError {
+        match error {
+            sea_orm::TransactionError::Connection(e) => {
+                let msg = format!("Transaction connection error: {e}");
+                print!("{msg}");
+                CustomError::new(HttpCodeW::InternalServerError, msg)
+            }
+            sea_orm::TransactionError::Transaction(inner) => inner,
         }
     }
 }
@@ -107,13 +120,13 @@ impl ResponseError for CustomError {
     fn error_response(&self) -> HttpResponse {
         // Log the error when it's being converted to an HTTP response
         print!(
-            "Chruch service responding with error: Status={:?}, Message={}",
+            "Dental service responding with error: Status={:?}, Message={}",
             self.error_status_code, self.error_message
         );
 
         // Create a ResponseObject using the error message and mapped HttpCodeW
         let response_object = create_response(self.error_message.clone(), self.error_status_code);
-        println!("Chruch ResponseObject: {response_object:?}");
+        println!("Dental ResponseObject: {response_object:?}");
         // Build the HttpResponse based on the HttpCodeW
         let status_code = StatusCode::from_u16(self.error_status_code as u16)
             .unwrap_or(StatusCode::INTERNAL_SERVER_ERROR);

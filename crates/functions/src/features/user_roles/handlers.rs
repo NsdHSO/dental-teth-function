@@ -17,7 +17,7 @@ pub async fn assign_role(
     let user_id = path.into_inner();
 
     // assigned_by comes from the authenticated subject
-    let me = UserService::get_user_by_auth_id(&db, &subject.sub).await?;
+    let me = UserService::get_user_by_auth_id(db.get_ref(), &subject.sub).await?;
     let assigned_by = me.id;
 
     let user_role = UserRoleService::assign_role(&db, user_id, body.role_id, assigned_by).await?;
@@ -62,7 +62,7 @@ pub async fn assign_my_role(
     body: web::Json<AssignRoleRequest>,
     subject: Subject,
 ) -> Result<HttpResponse> {
-    let me = UserService::get_user_by_auth_id(&db, &subject.sub).await?;
+    let me = UserService::get_user_by_auth_id(db.get_ref(), &subject.sub).await?;
     let user_role = UserRoleService::assign_role(&db, me.id, body.role_id, me.id).await?;
     let resp = create_response(user_role, HttpCodeW::Created);
     Ok(HttpResponse::Created().json(resp))
@@ -75,7 +75,7 @@ pub async fn remove_my_role(
     subject: Subject,
 ) -> Result<HttpResponse> {
     let role_id = path.into_inner();
-    let me = UserService::get_user_by_auth_id(&db, &subject.sub).await?;
+    let me = UserService::get_user_by_auth_id(db.get_ref(), &subject.sub).await?;
     UserRoleService::remove_role(&db, me.id, role_id).await?;
     let resp = create_response("Role removed", HttpCodeW::NoContent);
     Ok(HttpResponse::Ok().json(resp))
@@ -86,7 +86,7 @@ pub async fn get_my_roles(
     db: web::Data<sea_orm::DatabaseConnection>,
     subject: Subject,
 ) -> Result<HttpResponse> {
-    let me = UserService::get_user_by_auth_id(&db, &subject.sub).await?;
+    let me = UserService::get_user_by_auth_id(db.get_ref(), &subject.sub).await?;
     let roles = UserRoleService::get_user_roles(&db, me.id).await?;
     let resp = create_response(roles, HttpCodeW::OK);
     Ok(HttpResponse::Ok().json(resp))

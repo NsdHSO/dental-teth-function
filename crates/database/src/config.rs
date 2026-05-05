@@ -1,10 +1,7 @@
 use http_response::error_handler::CustomError;
 use http_response::HttpCodeW;
-use once_cell::sync::OnceCell;
 use sea_orm::{ConnectOptions, Database, DatabaseConnection};
 use std::io::Write;
-
-static DB: OnceCell<DatabaseConnection> = OnceCell::new();
 
 pub async fn init(db_url: String, logging: bool) -> Result<DatabaseConnection, CustomError> {
     println!("Attempting to connect to database...");
@@ -56,14 +53,5 @@ pub async fn init(db_url: String, logging: bool) -> Result<DatabaseConnection, C
 
     println!("Successfully connected to database!");
 
-    // Store the connection in OnceCell
-    DB.set(conn.clone()) // Clone the connection to store it
-        .map_err(|_| {
-            CustomError::new(
-                HttpCodeW::InternalServerError,
-                "DB already initialized".to_string(),
-            )
-        })?;
-
-    Ok(conn) // Return the connection
+    Ok(conn)
 }

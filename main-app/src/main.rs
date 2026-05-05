@@ -8,8 +8,9 @@ use database::config::init;
 use dotenvy::dotenv;
 use env_logger::{Builder, Env};
 use functions::{
-    configure_appointments, configure_dentists, configure_roles,
-    configure_user_roles, configure_users, configure_user_profiles,
+    configure_appointment_attachments, configure_appointments, configure_dentists,
+    configure_patient_attachments, configure_patient_billings, configure_patients,
+    configure_roles, configure_user_profiles, configure_user_roles, configure_users,
 };
 use graphql::{
     build_schema, graphql_handler, graphql_playground, strapi_proxy_handler, StrapiClient,
@@ -37,7 +38,7 @@ async fn main() -> std::io::Result<()> {
         })
         .init();
 
-    let data_base_conn = conn.clone();
+    let data_base_conn = std::sync::Arc::new(conn);
     let host = cfg.host.clone();
     let port = cfg.port;
 
@@ -67,7 +68,7 @@ async fn main() -> std::io::Result<()> {
             .supports_credentials();
 
         App::new()
-            .app_data(web::Data::new(data_base_conn.clone()))
+            .app_data(web::Data::from(data_base_conn.clone()))
             .app_data(web::Data::new(schema.clone()))
             .app_data(web::Data::new(strapi_client.clone()))
             .app_data(web::Data::new(cfg.clone()))
@@ -78,9 +79,13 @@ async fn main() -> std::io::Result<()> {
                     .configure(configure_users)
                     .configure(configure_roles)
                     .configure(configure_user_roles)
+                    .configure(configure_user_profiles)
                     .configure(configure_dentists)
+                    .configure(configure_patients)
+                    .configure(configure_patient_attachments)
+                    .configure(configure_patient_billings)
                     .configure(configure_appointments)
-                    .configure(configure_user_profiles),
+                    .configure(configure_appointment_attachments),
             )
             .service(
                 web::resource("/graphql")

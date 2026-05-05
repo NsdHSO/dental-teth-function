@@ -1,12 +1,20 @@
+pub mod appointment_attachments;
 pub mod appointments;
 pub mod dentists;
+pub mod patient_attachments;
+pub mod patient_billings;
+pub mod patients;
 pub mod roles;
 pub mod user_roles;
 pub mod users;
 pub mod user_profiles;
 
+pub use appointment_attachments::configure_appointment_attachments;
 pub use appointments::configure_appointments;
 pub use dentists::configure_dentists;
+pub use patient_attachments::configure_patient_attachments;
+pub use patient_billings::configure_patient_billings;
+pub use patients::configure_patients;
 pub use roles::configure_roles;
 pub use user_roles::configure_user_roles;
 pub use users::configure_users;

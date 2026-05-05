@@ -1,15 +1,21 @@
 pub mod appointment;
+pub mod appointment_attachment;
 pub mod dentist;
+pub mod patient;
+pub mod patient_attachment;
+pub mod patient_billing;
 pub mod role;
 pub mod user;
 pub mod user_role;
 pub mod user_profile;
 
 pub use appointment::{ActiveModel as AppointmentActiveModel, Entity as Appointment, Model as AppointmentModel};
+pub use appointment_attachment::{ActiveModel as AppointmentAttachmentActiveModel, Entity as AppointmentAttachment, Model as AppointmentAttachmentModel};
 pub use dentist::{ActiveModel as DentistActiveModel, Entity as Dentist, Model as DentistModel};
+pub use patient::{ActiveModel as PatientActiveModel, Entity as Patient, Model as PatientModel};
+pub use patient_attachment::{ActiveModel as PatientAttachmentActiveModel, Entity as PatientAttachment, Model as PatientAttachmentModel};
+pub use patient_billing::{ActiveModel as PatientBillingActiveModel, Entity as PatientBilling, Model as PatientBillingModel};
 pub use role::{ActiveModel as RoleActiveModel, Entity as Role, Model as RoleModel};
 pub use user::{ActiveModel as UserActiveModel, Entity as User, Model as UserModel};
-pub use user_role::{
-    ActiveModel as UserRoleActiveModel, Entity as UserRole, Model as UserRoleModel,
-};
+pub use user_role::{ActiveModel as UserRoleActiveModel, Entity as UserRole, Model as UserRoleModel};
 pub use user_profile::{ActiveModel as UserProfileActiveModel, Entity as UserProfile, Model as UserProfileModel};
