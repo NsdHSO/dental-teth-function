@@ -21,14 +21,14 @@ tokio = { workspace = true }
 uuid = { workspace = true }
 
 [dependencies.sea-orm]
-version = "1.1.5"
+version = "2.0.0"
 features = [
     "sqlx-postgres",
     "runtime-tokio-native-tls",
 ]
 
 [dependencies.sea-orm-migration]
-version = "1.1.11"
+version = "2.0.0"
 features = [
     "sqlx-postgres",
     "runtime-tokio-native-tls",
